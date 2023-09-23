@@ -7,7 +7,7 @@ from langchain.llms import CTransformers
 from dotenv import find_dotenv, load_dotenv
 import box
 import yaml
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModel, AutoTokenizer,AutoModelForCausalLM
 
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
@@ -24,7 +24,12 @@ def build_llm():
 #                         config={'max_new_tokens': cfg.MAX_NEW_TOKENS,
 #                                 'temperature': cfg.TEMPERATURE}
 #                         )
-    model = AutoModel.from_pretrained(cfg.MODEL_BIN_PATH, trust_remote_code=True).half().cuda()
+    model = AutoModelForCausalLM.from_pretrained(
+            cfg.MODEL_BIN_PATH,
+            load_in_4bit=True,
+            torch_dtype=torch.float16,
+            device_map='auto'
+        )
     model = model.eval()
 
     return model
