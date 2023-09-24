@@ -73,11 +73,13 @@ def parse_text(text):
 
 def predict(input, chatbot, max_length, top_p, temperature, history):
     chatbot.append((parse_text(input), ""))
-    for response, history in model.stream_chat(tokenizer, input, history, max_length=max_length, top_p=top_p,
-                                               temperature=temperature):
-        chatbot[-1] = (parse_text(input), parse_text(response))       
+    response = dbqa({'query': input})
+    chatbot[-1] = (parse_text(input), parse_text(response))
+    # for response, history in model.stream_chat(tokenizer, input, history, max_length=max_length, top_p=top_p,
+    #                                            temperature=temperature):
+    #     chatbot[-1] = (parse_text(input), parse_text(response))       
 
-        yield chatbot, history
+    #     yield chatbot, history
 
 
 def reset_user_input():
