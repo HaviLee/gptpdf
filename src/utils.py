@@ -28,12 +28,18 @@ def set_qa_prompt():
 
 
 def build_retrieval_qa(llm, prompt, vectordb):
-    dbqa = RetrievalQA.from_chain_type(llm=llm,
-                                       chain_type='stuff',
-                                       retriever=vectordb.as_retriever(search_kwargs={'k': cfg.VECTOR_COUNT}),
-                                       return_source_documents=cfg.RETURN_SOURCE_DOCUMENTS,
-                                       chain_type_kwargs={'prompt': prompt}
-                                       )
+    # dbqa = RetrievalQA.from_chain_type(llm=llm,
+    #     chain_type='stuff',
+    #     retriever=vectordb.as_retriever(search_kwargs={'k': cfg.VECTOR_COUNT}),
+    #     return_source_documents=cfg.RETURN_SOURCE_DOCUMENTS,
+    #     chain_type_kwargs={'prompt': prompt}
+    #     )
+    dbqa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key='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'),
+        chain_type='stuff',
+        retriever=vectordb.as_retriever(search_kwargs={'k': cfg.VECTOR_COUNT}),
+        return_source_documents=cfg.RETURN_SOURCE_DOCUMENTS,
+        chain_type_kwargs={'prompt': prompt}
+        )
     return dbqa
 
 

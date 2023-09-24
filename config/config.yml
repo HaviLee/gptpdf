@@ -10,3 +10,4 @@ MODEL_TYPE: 'llama'
 MODEL_BIN_PATH: 'LinkSoul/Chinese-Llama-2-7b-4bit'
 MAX_NEW_TOKENS: 256
 TEMPERATURE: 0.01
+OPENAI_API_KEY: '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'

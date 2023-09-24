@@ -14,3 +14,5 @@ transformers
 cpm_kernels
 accelerate
 bitsandbytes
+xformers
+openai
